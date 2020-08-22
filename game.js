@@ -8,13 +8,10 @@ var userClickedPattern = [];
 //1. Use jQuery to detect when any of the buttons are clicked and trigger a handler function.
 $(".btn").click(function() {
 
-  //2. Inside the handler, create a new variable called userChosenColour to store the id of the button that got clicked.
-  var userChosenColour = $(this).attr("id");
-
-  //4. Add the contents of the variable userChosenColour created in step 2 to the end of this new userClickedPattern
+  var userChosenColour = $(this).attr("id"); 
   userClickedPattern.push(userChosenColour);
-
-  console.log(userClickedPattern);
+playSound(userChosenColour);
+animatePress(userChosenColour); 
 
 });
 
@@ -29,11 +26,18 @@ function nextSequence() {
   playSound(randomChosenColour);
 }
 
-
 function playSound(name) {
 
     var audio = new Audio("sounds/" + name + ".mp3");
     audio.play();
 }
 
- 
+  
+function animatePress(currentColour) {
+    $("#" + currentColour).addClass("pressed");
+
+    //3. use Google/Stackoverflow to figure out how you can use Javascript to remove the pressed class after a 100 milliseconds.
+    setTimeout(function () {
+      $("#" + currentColour).removeClass("pressed");
+    }, 100);
+  }
